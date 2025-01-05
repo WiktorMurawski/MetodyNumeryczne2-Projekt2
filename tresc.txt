@@ -1,0 +1,4 @@
+Metoda Adamsa-Bashfortha rzędu 4-go dla liniowych równań różniczkowych 
+pierwszego i drugiego rzędu. Wartości początkowe y_1, y_2, y_3 należy 
+obliczyć metodą Rungego-Kutty rzędu 4-go (wzór Ralstona; należy 
+samodzielnie poszukać dokładnych wartości współczynników).
