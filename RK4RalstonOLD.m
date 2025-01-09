@@ -1,4 +1,4 @@
-function y = RK4Ralston(F,Y0,t0,tN,N)
+function y = RK4RalstonOLD(F,Y0,t0,tN,N)
 
 y = zeros(length(Y0),N+1);
 t = linspace(t0, tN, N+1);

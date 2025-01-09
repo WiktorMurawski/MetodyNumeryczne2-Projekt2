@@ -21,7 +21,7 @@
 % plot(t,y(1,:));
 % 
 % yfun = @(x) exp(-0.5 * x) * (2 * sqrt(3) / 3) * sin(sqrt(3) / 2 * x) + 1;
-% yfun  = @(varargin)arrayfun(yfun,varargin{:});
+% yfun = @(varargin)arrayfun(yfun,varargin{:});
 % 
 % plot(t,yfun(t));
 

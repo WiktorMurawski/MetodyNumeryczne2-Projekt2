@@ -7,7 +7,7 @@ function Y_new = RK4RalstonStep(F,h,tn,Yn)
 % tn - wartość zmiennej niezależnej
 % yn - wartość funkcji y w momencie tn
 % WYJŚCIE:
-% y_new - nowa wyznaczona wartość y w momencie tn+h
+% y_new - wyznaczona wartość y w momencie tn+h
 
   a2 = 2/5;
   a3 = (14 - 3*sqrt(5))/16;
