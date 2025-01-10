@@ -55,11 +55,11 @@ y(:,3) = RK4RalstonStep(F,h,t(2),y(:,2));
 y(:,4) = RK4RalstonStep(F,h,t(3),y(:,3));
 
 for i = 4:N
-    F1 = F(t(i), y(:,i));
-    F2 = F(t(i-1), y(:,i-1));
-    F3 = F(t(i-2), y(:,i-2));
-    F4 = F(t(i-3), y(:,i-3));
-    y(:, i+1) = y(:, i) + h * (55*F1 - 59*F2 + 37*F3 - 9*F4) / 24;
+    F1 = F(t(i),y(:,i));
+    F2 = F(t(i-1),y(:,i-1));
+    F3 = F(t(i-2),y(:,i-2));
+    F4 = F(t(i-3),y(:,i-3));
+    y(:,i+1) = (55*F1 - 59*F2 + 37*F3 - 9*F4) / 24 * h + y(:,i);
 end
 
 end % function
