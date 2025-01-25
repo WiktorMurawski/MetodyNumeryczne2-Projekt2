@@ -1,7 +1,4 @@
-function test1
-% Autor: Wiktor Murawski, 333255
-% Projekt 2, Zadanie 36
-% 
+function test3
 % Kilka testów dla prostych równań pierwszego rzędu, dla których znane są
 % rozwiązania analityczne
 
@@ -21,7 +18,7 @@ xN = 10;
 
 f = @(x) x;
 
-runTest(f,b,a,x0,xN,y0);
+runTest(f,b,a,x0,xN,y0,1);
 
 %% TEST 2
 % y' = 2x, y(0) = 0
@@ -39,7 +36,7 @@ xN = 10;
 
 f = @(x) x^2;
 
-runTest(f,b,a,x0,xN,y0);
+runTest(f,b,a,x0,xN,y0,1);
 
 %% TEST 3
 % y' = 3x^2, y(0) = 0
@@ -57,7 +54,7 @@ xN = 10;
 
 f = @(x) x^3;
 
-runTest(f,b,a,x0,xN,y0);
+runTest(f,b,a,x0,xN,y0,1);
 
 %% TEST 4
 % y' = 4x^3, y(0) = 0
@@ -75,7 +72,7 @@ xN = 10;
 
 f = @(x) x^4;
 
-runTest(f,b,a,x0,xN,y0);
+runTest(f,b,a,x0,xN,y0,1);
 
 %% TEST 5
 % y' = 5x^4, y(0) = 0
@@ -93,4 +90,4 @@ xN = 10;
 
 f = @(x) x^5;
 
-runTest(f,b,a,x0,xN,y0);
+runTest(f,b,a,x0,xN,y0,1);

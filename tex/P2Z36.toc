@@ -1,0 +1,2 @@
+\beamer@sectionintoc {1}{Wzór Ralstona}{3}{0}{1}
+\beamer@sectionintoc {2}{Metoda Adamsa-Bashfortha}{5}{0}{2}

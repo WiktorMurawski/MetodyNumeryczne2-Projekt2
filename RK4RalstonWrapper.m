@@ -24,7 +24,7 @@ if length(a) == 3
     error("Nieodpowiednie warunki początkowe")
   end
   a2 = a{3};
-  F = @(x, Y) [ Y(2); (b(x) - a0(x) * Y(1) - a1(x) * Y(2)) / a2(x)];
+  F = @(x, Y) [ Y(2); (b(x) - a0(x)*Y(1) - a1(x)*Y(2)) / a2(x)];
 else
   if length(y0) ~= 1
     error("Nieodpowiednie warunki początkowe")
@@ -32,6 +32,6 @@ else
   F = @(x, Y) (b(x) - a0(x)*Y) / a1(x);
 end
 
-y = RK4Chat(F,y0,x0,xN,N);
+y = RK4Ralston(F,y0,x0,xN,N);
 
 end % function

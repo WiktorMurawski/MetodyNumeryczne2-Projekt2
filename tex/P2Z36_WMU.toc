@@ -1,0 +1,4 @@
+\beamer@sectionintoc {1}{Wprowadzenie}{2}{0}{1}
+\beamer@sectionintoc {2}{Metoda Rungego-Kutty (Ralston)}{4}{0}{2}
+\beamer@sectionintoc {3}{Metoda Adamsa-Bashfortha}{8}{0}{3}
+\beamer@sectionintoc {4}{Testy}{9}{0}{4}

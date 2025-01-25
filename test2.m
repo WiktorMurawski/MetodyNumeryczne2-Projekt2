@@ -1,4 +1,7 @@
 function test2
+% Autor: Wiktor Murawski, 333255
+% Projekt 2, Zadanie 36
+% 
 % Kilka testów dla prostych równań drugiego rzędu, dla których znane są
 % rozwiązania analityczne
 
@@ -15,11 +18,11 @@ b = @(x) 2;
 y0 = [0,0];
 
 x0 = 0;
-xN = 2;
+xN = 10;
 
 y = @(x) x^2;
 
-testFunction(y,b,a,x0,xN,y0);
+runTest(y,b,a,x0,xN,y0);
 
 %% TEST 2
 % y'' = 6x, y(0) = 0, y'(0) = 0
@@ -34,11 +37,11 @@ b = @(x) 6*x;
 y0 = [0,0];
 
 x0 = 0;
-xN = 2;
+xN = 10;
 
 y = @(x) x^3;
 
-testFunction(y,b,a,x0,xN,y0);
+runTest(y,b,a,x0,xN,y0);
 
 %% TEST 3
 % y'' = 12x^2, y(0) = 0, y'(0) = 0
@@ -53,10 +56,27 @@ b = @(x) 12*x^2;
 y0 = [0,0];
 
 x0 = 0;
-xN = 2;
+xN = 10;
 
 y = @(x) x^4;
 
-testFunction(y,b,a,x0,xN,y0);
+runTest(y,b,a,x0,xN,y0);
 
-end % function
+%% TEST 4
+% y'' = 20x^3, y(0) = 0, y'(0) = 0
+% y = x^5
+
+a2 = @(x) 1;
+a1 = @(x) 0;
+a0 = @(x) 0;
+a = {a0; a1; a2};
+b = @(x) 20*x^3;
+
+y0 = [0,0];
+
+x0 = 0;
+xN = 10;
+
+y = @(x) x^5;
+
+runTest(y,b,a,x0,xN,y0);

@@ -1,0 +1,235 @@
+\documentclass[9pt]{beamer}
+\usetheme{Warsaw}
+\usefonttheme[onlymath]{serif}
+
+\usepackage[utf8]{inputenc}
+%\usepackage[polish]{babel}
+\usepackage[T1]{fontenc}
+\usepackage{comment}
+\usepackage{setspace}
+\usepackage{amsmath}
+\usepackage{dcolumn}
+\usepackage{siunitx}
+\usepackage{tabularx}
+\usepackage{graphicx}
+\usepackage{changepage}
+\usepackage[backend=biber,style=numeric,sorting=nyt,language=polish]{biblatex} % Konfiguracja biblatex
+\addbibresource{references.bib} % Link the .bib file
+
+\sisetup{
+    table-number-alignment = center, % Align numbers at the decimal point
+    table-format = +1.4e3,           % Specify number format: 1 digit before, 3 after decimal, and 1 exponent
+    tight-spacing = true,           % Remove extra spacing around numbers
+}
+
+\newcolumntype{M}{>{\centering\arraybackslash\math}p{2cm}}
+
+\linespread{1}
+
+%\newcommand\eqozn{\stackrel{\mathclap{\normalfont\mbox{\normalfont\tiny ozn}}}{=}}
+\newcommand\eqozn{\mathrel{\overset{\makebox[0pt]{\mbox{\scriptsize ozn}}}{=}}}
+
+\title{Projekt 2, Zadanie 36}
+\author{Wiktor Murawski, 333255, grupa 3, środa 12:15}
+\date{}
+
+\begin{document}
+
+\begin{frame}
+    %\frametitle{\insertauthor,\space\inserttitle}
+    \begin{spacing}{1.75}
+    \begin{center}
+        \inserttitle\par
+        \insertauthor
+    \end{center}
+    \vspace{2em}
+    Metoda Adamsa-Bashfortha rzędu 4-go dla liniowych równań różniczkowych pierwszego i drugiego rzędu. Wartości początkowe $y_1$, $y_2$, $y_3$ obliczane metodą Rungego-Kutty rzędu 4-go (wzór Ralstona). 
+    \end{spacing}
+\end{frame}
+
+\section{Wprowadzenie}
+\begin{frame}{Równanie różniczkowe pierwszego rzędu}
+    Dane jest równanie różniczkowe liniowe pierwszego rzędu oraz warunek początkowy:
+    \begin{equation*}
+        \label{eq1}
+        a_1(x)y' + a_0(x)y = b(x), \qquad y(x_0) = y_0
+    \end{equation*}
+    %na przedziale $\begin{bmatrix} x_0, x_N \end{bmatrix}$ 
+
+    \hspace{2cm}
+    
+    Przekształcając równanie otrzymujemy
+    \begin{equation*}
+        y' = f(x,y) = \frac{b(x) - a_0(x)y}{a_1(x)}
+    \end{equation*}
+    
+\end{frame}
+
+\begin{frame}{Równanie różniczkowe drugiego rzędu}
+    Dane jest równanie różniczkowe liniowe drugiego rzędu oraz warunki początkowe:
+    \begin{equation*}
+        \label{eq2}
+        a_2(x)y'' + a_1(x)y' + a_0(x)y = b(x), \qquad \begin{matrix}y(x_0) = y_0 \\ y'(x_0) = y'_0\end{matrix}
+    \end{equation*}
+    %na przedziale $\begin{bmatrix} x_0, x_N \end{bmatrix}$
+
+    Sprowadzamy równanie do układu równań różniczkowych liniowych stopnia pierwszego: 
+    \[ Y' = F(x,Y), \] gdzie
+    \begin{equation*}
+        Y = \begin{bmatrix} y \\ y' \end{bmatrix} \eqozn \begin{bmatrix} y_1 \\ y_2 \end{bmatrix} \qquad\qquad Y' = \begin{bmatrix} y_1' \\ y_2' \end{bmatrix}
+    \end{equation*}
+
+    Przekształacając równanie otrzymujemy
+    \begin{equation*}
+        Y' = F(x,Y) = \begin{bmatrix} y_2 \\ \dfrac{1}{a_2(x)}(b(x) - a_0y_1 - a_1y_2) \end{bmatrix}
+    \end{equation*}
+    
+\end{frame}
+
+\section{Metoda Rungego-Kutty (Ralston)}
+\begin{frame}{Jawne metody Rungego-Kutty 4-go rzędu}
+    Mając wartość $Y_n$, jawne metody Rungego-Kutty rzędu czwartego pozwalają na wyznaczenie wartości $Y_{n+1}$ następująco:
+    $$ \begin{aligned}
+        K_1 &= hF(x_n, Y_n) \\
+        K_2 &= hF(x_n + a_2h, Y_n + b_{21}K_1) \\
+        K_3 &= hF(x_n + a_3h, Y_n + b_{31}K_1 + b_{32}K_2) \\
+        K_4 &= hF(x_n + a_4h, Y_n + b_{41}K_1 + b_{42}K_2 + b_{43}K_3) \\
+        Y_{n+1} - Y_n &= c_1K_1 + c_2K_2 + c_3K_3 + c_4K_4
+    \end{aligned} $$
+    Współczynniki $a_i, b_{ij},c_i$ przedstawione w tablicy Butchera:
+    $$\begin{array}{c|cccc}
+    0 & 0 & 0 & 0 & 0 \\
+    a_2 & b_{21} & 0 & 0 & 0 \\
+    a_3 & b_{31} & b_{32} & 0 & 0 \\
+    a_4 & b_{41} & b_{42} & b_{43} & 0 \\ \hline
+    & c_1 & c_2 & c_3 & c_4
+    \end{array}$$
+\end{frame}
+
+\begin{frame}{Ogólne wzory na współczynniki}
+    \newcommand{\1}{\alpha}
+    \newcommand{\2}{\beta}
+
+    \small
+    
+    Współczynniki $a_i, b_{ij},c_i$ tworzą rodzinę dwuparametrową zależną od parametrów $\1$ i $\2$ gdzie $\1 \neq 0, \2 \neq 0, \1 \neq 1, \2 \neq 1, \1 \neq \2$.
+
+    \normalsize
+    \renewcommand{\arraystretch}{2.5}
+    \begin{adjustwidth}{-2.5em}{-3em}
+    \scalebox{0.55}{$
+    \begin{array}{c|ccccc}
+    0 & 0 & 0 & 0 & 0  \\
+    \1 & \1 & 0 & 0 & 0  \\
+    \2 & \2 - \dfrac{\2(\2-\1)}{2\1(1-2\1)} & \dfrac{\2(\2-\1)}{2\1(1-2\1)} & 0 & 0  \\
+    1 & 
+1 - \dfrac{(1-\1)(\2(\1+\2-1-(2\2-1)^2) + 2\1(1-2\1)(1-\2))}{2\1\2(\2-\1)(6\1\2-4(\1+\2)+3)}
+    
+% \dfrac
+% {12\1^2\2^2 + 12\1^2\2 - 4\1^2 + 12\1\2^2 - 15\1\2 + 6\1 - 4\2^2 + 5\2 - 2}
+% {2\1\2(4\1 + 4\2 - 6\1\2 - 3)}
+& \dfrac{(1-\1)(\1+\2-1-(2\2-1)^2)}{2\1(\2-\1)(6\1\2-4(\1+\2)+3)} & \dfrac{(1-2\1)(1-\1)(1-\2)}{\2(\2-\1)(6\1\2-4(\1+\2)+3)} & 0  \\ \hline
+      & \dfrac{1}{2}-\dfrac{1-2(\1+\2)}{12\1\2} & \dfrac{2\2 - 1}{12\1(\2-\1)(1-\1)} & \dfrac{1 - 2\1}{12\2(\2-\1)(1-\2)} & \dfrac{1}{2}+\dfrac{2(\1+\2)-3}{12(1-\1)(1-\2)}
+    \end{array}
+    $}
+    \end{adjustwidth}
+
+    \vspace{0.5cm}
+
+    \small
+    
+    Dla parametrów $\alpha = \frac{2}{5} \text{ i } \beta = \frac{7}{8} - \frac{3\sqrt5}{16}$ otrzymujemy ograniczenie górne błędu:
+    \[ |E| < 5.46\cdot10^{-2}ML^4\]
+    gdzie, dla pewnego obszaru $B(x,y)$ zawierającego $(x_n,y_n)$, zachodzi
+    $$f(x,y) \leq M \qquad\qquad \dfrac{\partial^{i+j}f}{\partial x^i\partial y^j} < \dfrac{L^{i+j}}{M^{j-1}} $$
+    
+\end{frame}
+
+\begin{frame}{Tabela Butchera (wartości dokładne)}
+    % Wyznaczone wartości współczynników dla parametrów minimalizujących ograniczenie górne błędu ($\alpha = \frac{2}{5} \text{ i } \beta = \frac{7}{8} - \frac{3\sqrt5}{16}$). Dla tych $\alpha$ i $\beta$:
+
+    % \vspace{16pt}
+    \renewcommand{\arraystretch}{2.5}
+    \scalebox{0.80}{$
+    \begin{array}{c|cccc}
+    0 & 0 & 0 & 0 & 0 \\
+    \dfrac{2}{5}            & \dfrac{2}{5}                          & 0                                     & 0                                                 & 0 \\
+    \dfrac{14-3\sqrt5}{16}  & \dfrac{-2\,889 + 1\,428\sqrt5}{1\,024}   & \dfrac{3\,785 - 1\,620\sqrt5}{1\,024}    & 0                                                 & 0 \\
+    1                       & \dfrac{-3\,365 + 2\,094\sqrt5}{6\,040}   & \dfrac{-975 - 3\,046\sqrt5}{2\,552}     & \dfrac{467\,040 + 203\,968\sqrt5}{240\,845}          & 0 \\ \hline
+                            & \dfrac{263 + 24\sqrt5}{1\,812}         & \dfrac{125 - 1\,000\sqrt5}{3\,828}       & \dfrac{3\,426\,304 + 1\,661\,952\sqrt5}{5\,924\,787}    & \dfrac{30 - 4\sqrt5}{123}
+    \end{array}
+    $}
+\end{frame}
+
+\begin{frame}{Tabela Butchera (wartości przybliżone)}
+    \renewcommand{\arraystretch}{1.5} % Adjust row spacing for better readability
+    % \scalebox{1}{$
+    % \begin{array}{c|ccccc}
+    % 0 & 0 & 0 & 0 & 0  \\
+    % 0.4 & 0.4 & 0 & 0 & 0  \\
+    % 0.45573725 & 0.29697761 & 0.15875964 & 0 & 0  \\
+    % 1 & 0.21810040 & -3.05096516 & 3.83286476 & 0  \\ \hline
+    %   & 0.17476028 & -0.55148066 & 1.20553560 & 0.17118478
+    % \end{array}
+    % $}
+    \scalebox{1}{$
+    \begin{array}{c|ccccc}
+    0 & 0 & 0 & 0 & 0  \\
+    0.4 & 0.4 & 0 & 0 & 0  \\
+    0.45573725 & 0.29697761 & 0.15875964 & 0 & 0  \\
+    1 & 0.21810039 & -3.05096515 & 3.83286476 & 0  \\ \hline
+      & 0.17476028 & -0.55148066 & 1.20553560 & 0.17118478
+    \end{array}
+    $}
+\end{frame}
+
+\section{Metoda Adamsa-Bashfortha}
+\begin{frame}{Metoda Adamsa-Bashfortha}
+    
+\end{frame}
+
+\section{Testy}
+\begin{frame}
+	\frametitle{Testy poprawności}
+\end{frame}
+
+
+\begin{frame}
+	\frametitle{Testy numeryczne}
+	\begin{spacing}{1.25}
+		Przetestujemy teraz własności numeryczne zaimplementowanej metody. 
+		% Zaobserwujemy jak metoda działa dla kilku wybranych funkcji, które nie są wielomianami stopnia $ < 2 $.\\
+		% Zauważymy, że dla niskich $n$ wyniki są bardzo niedokładne. Intuicyjnie, im wyższe n, tym wyniki będą dokładniejsze; $k$-krotne zwiększenie wartości $n$ spowoduje około $k^2$-krotne zmniejszenie wartości błędu bezwzględnego.\\
+		% Wynika to z faktu wspomnianego na wykładzie, mianowicie jeśli $f$ jest wystarczająco wiele razy różniczkowalna, to 
+		% $$ | S^{[n]}(f) - I(f) | = \mathcal{O}(n^{-p})$$
+		% gdzie $p$ jest rzędem zastosowanej kwadratury, w naszym przypadku 
+		% $$ | S_S^{[n]}(f) - I(f) | = \mathcal{O}(n^{-2}) $$
+	\end{spacing}
+\end{frame}
+
+
+
+\begin{frame}
+	\frametitle{Testy numeryczne}
+\end{frame}
+
+
+\begin{frame}
+	\frametitle{Źródła}
+    \nocite{*}
+    \printbibliography
+\end{frame}
+
+
+\end{document}
+
+
+% @article{Ralston1962RungeKuttaMW,
+%   title={Runge-Kutta methods with minimum error bounds},
+%   author={Anthony Ralston},
+%   journal={Mathematics of Computation},
+%   year={1962},
+%   volume={16},
+%   pages={431-437},
+%   url={https://www.ams.org/journals/mcom/1962-16-080/S0025-5718-1962-0150954-0/S0025-5718-1962-0150954-0.pdf},
+% }
