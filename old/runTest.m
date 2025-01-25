@@ -58,7 +58,6 @@ for i = range
   N = floor((xN - x0)/h);
   y_exact = fun_arr(linspace(x0, xN, N+1));
   y_num = P2Z36_WMU_AdamsBashforth(b, a, x0, xN, y0, N);
-  abs(y_exact(1:10) - y_num(1:10));
   err = max(abs(y_exact - y_num));
   fprintf(" %2d |  %.9f  |  %12e  |    %6.3f\n", i, h, err, olderr/err);
   olderr = err;
